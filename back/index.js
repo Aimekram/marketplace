@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 require("dotenv/config");
 const app = express();
 
-const Ad = require("./models/Ad");
+const { Ad } = require("./models");
 
 
 // database connection
@@ -24,7 +24,7 @@ connect();
 
 // get data
 app.get("/api/ads", async (req, res) => {
-    const ads = await Ad.find()
+    const ads = await Ad.find().populate('processor').populate('graphics')
     res.status(200).json(ads);
 });
 

@@ -2,28 +2,20 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const adSchema = new Schema({
-    processor_id: {
-      type: String,
-      length: 24,
-      required: true
-    },
-    graphics_id: {
-        type: String,
-        length: 24,
-        required: true
-      },
+    processor: { type: Schema.Types.ObjectId, ref: 'Processor' },
+    graphics: { type: Schema.Types.ObjectId, ref: 'Graphics' },
     price: {
-      type: Number,
-      minlength: 1,
-      maxlength: 10,
-      required: true
+        type: Number,
+        minlength: 1,
+        maxlength: 10,
+        required: true
     },
     loc: {
         type: String,
         minLength: 3,
         maxLength: 50,
         required: true
-      },
+    },
     description: {
         type: String,
         minLength: 3,
@@ -32,6 +24,6 @@ const adSchema = new Schema({
     }, 
   });
   
-  const Ad = mongoose.model('ad', adSchema);
+  const Ad = mongoose.model('Ad', adSchema);
   
   module.exports = Ad;
