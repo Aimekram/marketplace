@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 require("dotenv/config");
 const app = express();
 
+const Ad = require("./models/Ad");
+
+
 // database connection
 const connect = async () => {
     try {
@@ -18,6 +21,12 @@ const connect = async () => {
 };
 
 connect();
+
+// get data
+app.get("/api/ads", async (req, res) => {
+    const ads = await Ad.find()
+    res.status(200).json(ads);
+});
 
 //PORT listening
 const PORT = process.env.PORT || 4000;
