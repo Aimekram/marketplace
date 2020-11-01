@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const adSchema = new Schema({
+const offerSchema = new Schema({
     processor: { type: Schema.Types.ObjectId, ref: 'Processor' },
     graphics: { type: Schema.Types.ObjectId, ref: 'Graphics' },
     price: {
@@ -24,6 +24,6 @@ const adSchema = new Schema({
     }, 
   });
   
-  const Ad = mongoose.model('Ad', adSchema);
+  const Offer = mongoose.model('Offer', offerSchema);
   
-  module.exports = Ad;
+  module.exports = Offer;

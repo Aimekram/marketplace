@@ -1,5 +1,5 @@
 module.exports = {
-    Ad: require("./Ad"),
+    Offer: require("./Offer"),
     Processor: require("./Processor"),
     Graphics: require("./Graphics"),
 };
