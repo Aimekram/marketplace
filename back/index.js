@@ -31,6 +31,11 @@ app.get("/api/offersPreviews", async (req, res) => {
     res.status(200).json(offersPreviews);
 });
 
+app.get("/api/offers", async (req, res) => {
+    const offer = await Offer.find().populate('processor').populate('graphics')
+    res.status(200).json(offer);
+});
+
 app.get("/api/offers/:id", async (req, res) => {
     const offer = await Offer.findById(req.params.id).populate('processor').populate('graphics')
     res.status(200).json(offer);
