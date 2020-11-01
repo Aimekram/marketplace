@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import { GlobalStyles } from "../../styledComponents/GlobalStyles";
 
 import Home from "../Home";
 import AdShort from "../AdShort";
 
 const App = () => (
   <Router>
-    <h2>MARKETPLACE</h2>
+    <GlobalStyles />
+    <h1>MARKETPLACE</h1>
     <nav>
       <ul>
         <li><Link to="/">Home</Link></li>

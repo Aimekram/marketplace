@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { BASE_URL } from "../../constants";
 import AdShort from "../AdShort";
+import { CardsContainer } from "../../styledComponents/StyledContainers";
+
 
 const Home = () => {
     const  [ ads, setAds ] = useState({})
@@ -25,7 +27,7 @@ const Home = () => {
     }, []);
 
     return (
-        <main>
+        <CardsContainer>
             {ads.length ?
                 ads.map(({_id, processor, graphics, price, loc, description}) => {
                 return(
@@ -41,7 +43,7 @@ const Home = () => {
                 })
                 : <p>Wczytywanie ogłoszeń...</p>
             }
-        </main>
+        </CardsContainer>
     )
 };
 

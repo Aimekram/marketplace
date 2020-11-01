@@ -1,11 +1,14 @@
 import React from "react";
 
+import Photo from "../../images/dragon.jpg";
+import { Card } from "../../styledComponents/StyledContainers";
+import { List } from "../../styledComponents/StyledLists";
+
 const AdShort = ({ processor, graphics, price, loc, description }) => {
     return (
-        <article>
-            <h2>Tytuł ogłoszenia</h2>
-            <div>tutaj zdjęcie</div>
-            <ul>
+        <Card>
+            <img src={Photo} alt=""/>
+            <List>
                 <li>
                     <h3>Procesor:</h3>
                     <span>{processor}</span>
@@ -26,8 +29,8 @@ const AdShort = ({ processor, graphics, price, loc, description }) => {
                     <h3>Opis:</h3>
                     <p>{description}</p>
                 </li>
-            </ul>
-        </article>
+            </List>
+        </Card>
     )
 };
 
