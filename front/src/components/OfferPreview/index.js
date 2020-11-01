@@ -4,9 +4,9 @@ import Photo from "../../images/dragon.jpg";
 import { Card } from "../../styledComponents/StyledContainers";
 import { List } from "../../styledComponents/StyledLists";
 
-const AdShort = ({ processor, graphics, price, loc, description }) => {
+const OfferPreview = ({ id, processor, graphics, price, loc }) => {
     return (
-        <Card>
+        <Card to={`/offers/?id=${id}`}>
             <img src={Photo} alt=""/>
             <List>
                 <li>
@@ -19,19 +19,15 @@ const AdShort = ({ processor, graphics, price, loc, description }) => {
                 </li>
                 <li>
                     <h3>Cena:</h3>
-                    <span>{price}</span>
+                    <span>{price} PLN</span>
                 </li>
                 <li>
                     <h3>Lokalizacja:</h3>
                     <span>{loc}</span>
-                </li>
-                <li>
-                    <h3>Opis:</h3>
-                    <p>{description}</p>
                 </li>
             </List>
         </Card>
     )
 };
 
-export default AdShort;
+export default OfferPreview;

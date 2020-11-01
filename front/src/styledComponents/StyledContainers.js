@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const CardsContainer = styled.main `
     display: flex;
@@ -6,7 +7,9 @@ export const CardsContainer = styled.main `
     justify-content: center;
 `
 
-export const Card = styled.div`
+export const Card = styled(Link)`
+    text-decoration: none;
+    color: inherit;
     width: fit-content;
     display: flex;
     flex-flow: row wrap;

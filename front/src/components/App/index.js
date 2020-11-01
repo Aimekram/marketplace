@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import { GlobalStyles } from "../../styledComponents/GlobalStyles";
 
 import Home from "../Home";
-import AdShort from "../AdShort";
+import Offer from "../Offer";
 
 const App = () => (
   <Router>
@@ -11,13 +11,12 @@ const App = () => (
     <nav>
       <ul>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/ad">SingleAd</Link></li>
       </ul>
     </nav>
 
     <Switch>
-      <Route path="/ad">
-        <AdShort />
+      <Route path="/offers">
+        <Offer />
       </Route>
       <Route path="/">
         <Home />

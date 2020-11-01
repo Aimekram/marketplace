@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 
 import { BASE_URL } from "../../constants";
-import AdShort from "../AdShort";
+import OfferPreview from "../OfferPreview";
 import { CardsContainer } from "../../styledComponents/StyledContainers";
 
 
 const Home = () => {
-    const  [ ads, setAds ] = useState({})
+    const  [ offersPreviews, setOffersPreviews ] = useState({})
 
     useEffect(() => {
       const abortController = new AbortController();
   
       async function fetchData() {
           try {
-              const rawResponse = await fetch(`${BASE_URL}/ads`, { signal: abortController.signal });
+              const rawResponse = await fetch(`${BASE_URL}/offersPreviews`, { signal: abortController.signal });
               const response = await rawResponse.json()
-              setAds(response.reverse())
+              setOffersPreviews(response.reverse())
           } catch (error) {
               console.log(error)
           }
@@ -28,16 +28,16 @@ const Home = () => {
 
     return (
         <CardsContainer>
-            {ads.length ?
-                ads.map(({_id, processor, graphics, price, loc, description}) => {
+            {offersPreviews.length ?
+                offersPreviews.map(({id, processor, graphics, price, loc}) => {
                 return(
-                    <AdShort
-                    key={_id}
-                    processor={processor.name}
-                    graphics={graphics.Bus}
-                    price={price}
-                    loc={loc}
-                    description={description}
+                    <OfferPreview
+                        key={id}
+                        id={id}
+                        processor={processor}
+                        graphics={graphics}
+                        price={price}
+                        loc={loc}
                     />
                 )
                 })
