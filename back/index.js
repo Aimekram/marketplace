@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 require("dotenv/config");
 const app = express();
 
-const { Offer } = require("./models");
-
+const offers = require('./routes/offers');
+const offersPreviews = require('./routes/offersPreviews');
 
 // database connection
 const connect = async () => {
@@ -22,24 +22,9 @@ const connect = async () => {
 
 connect();
 
-// get data
-app.get("/api/offersPreviews", async (req, res) => {
-    const offers = await Offer.find().populate('processor').populate('graphics');
-    const offersPreviews = offers.map(offer => {
-        return { id: offer._id, processor: offer.processor.name, graphics: offer.graphics.Bus, price: offer.price, loc: offer.loc}
-    })
-    res.status(200).json(offersPreviews);
-});
-
-app.get("/api/offers", async (req, res) => {
-    const offer = await Offer.find().populate('processor').populate('graphics')
-    res.status(200).json(offer);
-});
-
-app.get("/api/offers/:id", async (req, res) => {
-    const offer = await Offer.findById(req.params.id).populate('processor').populate('graphics')
-    res.status(200).json(offer);
-});
+//use routes
+app.use('/api/offers', offers);
+app.use('/api/offersPreviews', offersPreviews);
 
 //PORT listening
 const PORT = process.env.PORT || 4000;
