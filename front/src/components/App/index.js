@@ -3,6 +3,7 @@ import { GlobalStyles } from "../../styledComponents/GlobalStyles";
 
 import Home from "../Home";
 import Offer from "../Offer";
+import Signup from "../Signup";
 
 const App = () => (
   <Router>
@@ -11,12 +12,16 @@ const App = () => (
     <nav>
       <ul>
         <li><Link to="/">Home</Link></li>
+        <li><Link to="/signup">Sign up</Link></li>
       </ul>
     </nav>
 
     <Switch>
       <Route path="/offers">
         <Offer />
+      </Route>
+      <Route path="/signup">
+        <Signup />
       </Route>
       <Route path="/">
         <Home />
