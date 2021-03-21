@@ -1,7 +1,7 @@
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-require("dotenv/config");
+require('dotenv/config');
 const app = express();
 
 const users = require('./routes/users');
@@ -14,16 +14,16 @@ app.use(bodyParser.json());
 
 // database connection
 const connect = async () => {
-    try {
-        await mongoose.connect(process.env.DB_CONNECTION, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true
-        })
-        console.log("Connected to MongoDB!")
-    } catch(e) {
-        console.error("Could not connect to MongoDB...", e)
-    }
+	try {
+		await mongoose.connect(process.env.DB_CONNECTION, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+			useCreateIndex: true,
+		});
+		console.log('Connected to MongoDB!');
+	} catch (e) {
+		console.error('Could not connect to MongoDB...', e);
+	}
 };
 
 connect();
