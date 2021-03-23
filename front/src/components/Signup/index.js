@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 
-// TODO: 1. hash password 1b. email confirmation 2. what's next - thank you message? 3. Hide navigation - minimalize distraction
+// TODO:
+// 1. hash password
+// 1b. email confirmation
+// 2. what's next - thank you message?
+// 3. Hide navigation - minimalize distraction
+// 4. Add unhide password option
 
 const Signup = () => {
 	// controll form elements
@@ -26,7 +31,7 @@ const Signup = () => {
 
 		try {
 			await fetch(
-				`http://localhost:4000/api/users/signup`,
+				`http://localhost:4000/api/authentication/signup`,
 				requestOptions
 			);
 			// TODO: delete clear inputs - not needed if redirecting

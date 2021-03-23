@@ -23,9 +23,12 @@ const userSchema = new Schema({
 		type: String,
 		minlength: 6,
 		maxlength: 100,
+		required: 'Password is required',
 	},
 	date: { type: Date, default: Date.now },
-	//   googleId: String
+	token: {
+		type: String,
+	},
 });
 
 const User = mongoose.model('User', userSchema);

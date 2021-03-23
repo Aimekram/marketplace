@@ -5,6 +5,7 @@ require('dotenv/config');
 const app = express();
 
 const users = require('./routes/users');
+const authentication = require('./routes/authentication');
 const offers = require('./routes/offers');
 const offersPreviews = require('./routes/offersPreviews');
 
@@ -30,6 +31,7 @@ connect();
 
 //use routes
 app.use('/api/users', users);
+app.use('/api/authentication', authentication);
 app.use('/api/offers', offers);
 app.use('/api/offersPreviews', offersPreviews);
 
