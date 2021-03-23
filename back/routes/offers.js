@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const { Offer } = require('../models');
+const authenticateToken = require('../utils/authenticateToken');
 
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
 	const offers = await Offer.find()
 		.populate('processor')
 		.populate('graphics');

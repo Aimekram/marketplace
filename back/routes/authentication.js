@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const { User } = require('../models');
+const generateAccessToken = require('../utils/generateAccessToken');
 
 /**
  * @method - POST
@@ -52,7 +53,14 @@ router.post('/login', async (req, res) => {
 	}
 	try {
 		if (await bcrypt.compare(userPassword, user.password)) {
-			res.send('Success');
+			// create access token
+			const accessToken = generateAccessToken(user.email);
+			// TODO: make use of refresh tokens
+			const refreshToken = jwt.sign(
+				user.email,
+				process.env.JWT_REFRESH_SECRET
+			);
+			res.json({ accessToken: accessToken, refreshToken: refreshToken });
 		} else {
 			res.send('Not allowed');
 		}
