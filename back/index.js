@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 require('dotenv/config');
 const app = express();
 
@@ -10,8 +9,7 @@ const offers = require('./routes/offers');
 const offersPreviews = require('./routes/offersPreviews');
 
 //set up body parser to read request's body
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.json());
 
 // database connection
 const connect = async () => {
