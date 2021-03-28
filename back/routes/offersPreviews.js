@@ -10,7 +10,10 @@ router.get('/', async (req, res) => {
 	const offersPreviews = offers.map((offer) => {
 		return {
 			id: offer._id,
-			processor: offer.processor.name,
+			processor: {
+				processor_name: offer.processor.name,
+				processor_threads: offer.processor.threads,
+			},
 			graphics: offer.graphics.Bus,
 			price: offer.price,
 			loc: offer.loc,

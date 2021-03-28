@@ -26,9 +26,7 @@ const userSchema = new Schema({
 		required: 'Password is required',
 	},
 	date: { type: Date, default: Date.now },
-	token: {
-		type: String,
-	},
+	token: { type: String },
 });
 
 const User = mongoose.model('User', userSchema);

@@ -16,14 +16,21 @@ router.post('/signup', async (req, res) => {
 	console.log(req.body);
 	const { email: userEmail, password: userPassword } = req.body;
 
+	// check if all data provided
+	if (!email || !password) {
+		return res.status(400).send('Please enter all fields');
+	}
+
+	// check if user already exists
 	let user = await User.findOne({
 		email: userEmail,
 	});
+
 	if (user) {
-		return res
-			.status(400)
-			.send('Wygląda na to, że masz już u nas konto - zaloguj się'); //TODO: make this message appear on front?
+		return res.status(400).send('User with provided email already exists');
 	}
+
+	// create new User
 	try {
 		const hashedPassword = await bcrypt.hash(userPassword, 10);
 		user = new User({
@@ -31,7 +38,7 @@ router.post('/signup', async (req, res) => {
 			password: hashedPassword,
 		});
 		user.save();
-		res.status(201).json(user);
+		res.status(201).json(user.email);
 	} catch {
 		res.status(500).send(); //TODO: what's correct status here?
 	}
@@ -62,7 +69,7 @@ router.post('/login', async (req, res) => {
 			);
 			res.json({ accessToken: accessToken, refreshToken: refreshToken });
 		} else {
-			res.send('Not allowed');
+			res.send('Invalid credentials');
 		}
 	} catch {
 		res.status(500).send('Error'); //TODO: what's correct status here?
