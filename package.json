@@ -19,5 +19,8 @@
   "homepage": "https://github.com/Aimekram/marketplace#readme",
   "devDependencies": {
     "concurrently": "^6.0.0"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.4"
   }
 }
