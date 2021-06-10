@@ -7,6 +7,7 @@ import theme from '../../styles/theme';
 import Header from '../Header';
 import Home from '../Home';
 import Offer from '../Offer';
+import AddOffer from '../AddOffer';
 import Signup from '../Signup';
 import React from 'react';
 
@@ -17,6 +18,9 @@ const App = () => (
 			<Router>
 				<Header />
 				<Switch>
+					<Route path='/addOffer'>
+						<AddOffer />
+					</Route>
 					<Route path='/offers'>
 						<Offer />
 					</Route>
