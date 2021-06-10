@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
+import fetchData from '../../utils/fetchData';
 
-import { BASE_URL } from '../../constants';
 import image from '../../images/demoPC.jpg';
 
 import { Container } from '@material-ui/core';
@@ -15,20 +15,10 @@ const Offer = ({ location }) => {
 	useEffect(() => {
 		const abortController = new AbortController();
 
-		async function fetchData() {
-			try {
-				const rawResponse = await fetch(
-					`${BASE_URL}/offers/${offerId}`,
-					{ signal: abortController.signal }
-				);
-				const response = await rawResponse.json();
-				setOffers(response);
-			} catch (error) {
-				console.log(error);
-			}
-		}
-
-		fetchData();
+		(async function () {
+			const data = await fetchData(`/offers/${offerId}`, abortController);
+			setOffers(data);
+		})();
 
 		return () => {
 			abortController.abort();
