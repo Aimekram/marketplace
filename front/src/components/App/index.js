@@ -8,25 +8,28 @@ import Header from '../Header';
 import Home from '../Home';
 import Offer from '../Offer';
 import Signup from '../Signup';
+import React from 'react';
 
 const App = () => (
-	<ThemeProvider theme={theme}>
-		<CssBaseline />
-		<Router>
-			<Header />
-			<Switch>
-				<Route path='/offers'>
-					<Offer />
-				</Route>
-				<Route path='/signup'>
-					<Signup />
-				</Route>
-				<Route path='/'>
-					<Home />
-				</Route>
-			</Switch>
-		</Router>
-	</ThemeProvider>
+	<React.StrictMode>
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<Router>
+				<Header />
+				<Switch>
+					<Route path='/offers'>
+						<Offer />
+					</Route>
+					<Route path='/signup'>
+						<Signup />
+					</Route>
+					<Route path='/'>
+						<Home />
+					</Route>
+				</Switch>
+			</Router>
+		</ThemeProvider>
+	</React.StrictMode>
 );
 
 export default App;

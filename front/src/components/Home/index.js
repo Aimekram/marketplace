@@ -3,9 +3,20 @@ import React, { useState, useEffect } from 'react';
 import { BASE_URL } from '../../constants';
 import Hero from './Hero';
 import OfferPreview from '../OfferPreview';
-import { CardsContainer } from '../../styledComponents/StyledContainers';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+
+const useStyles = makeStyles((theme) => ({
+	cards: {
+		justifyContent: 'space-evenly',
+	},
+}));
 
 const Home = () => {
+	const classes = useStyles();
+
 	const [offersPreviews, setOffersPreviews] = useState({});
 
 	useEffect(() => {
@@ -33,26 +44,28 @@ const Home = () => {
 	return (
 		<main>
 			<Hero />
-			<CardsContainer>
-				{offersPreviews.length ? (
-					offersPreviews.map(
-						({ id, processor, graphics, price, loc }) => {
-							return (
-								<OfferPreview
-									key={id}
-									id={id}
-									processor={processor}
-									graphics={graphics}
-									price={price}
-									loc={loc}
-								/>
-							);
-						}
-					)
-				) : (
-					<p>Wczytywanie ogłoszeń...</p>
-				)}
-			</CardsContainer>
+			<Container>
+				<Grid container className={classes.cards}>
+					{offersPreviews.length ? (
+						offersPreviews.map(
+							({ id, processor, graphics, price, loc }) => {
+								return (
+									<OfferPreview
+										key={id}
+										id={id}
+										processor={processor}
+										graphics={graphics}
+										price={price}
+										loc={loc}
+									/>
+								);
+							}
+						)
+					) : (
+						<p>Wczytywanie ogłoszeń...</p>
+					)}
+				</Grid>
+			</Container>
 		</main>
 	);
 };
