@@ -32,6 +32,15 @@ const Hero = () => {
 			>
 				Wystaw swój komputer
 			</Button>
+			<Button
+				component={Link}
+				to={'/offers'}
+				variant='contained'
+				size='large'
+				color='primary'
+			>
+				Znajdź komputer dla siebie
+			</Button>
 		</Container>
 	);
 };

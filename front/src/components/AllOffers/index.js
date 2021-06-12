@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
 import { BASE_URL } from '../../constants';
-import Hero from './Hero';
 import OfferPreview from '../OfferPreview';
+import Filter from './Filter';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
+	root: {
+		marginTop: '120px',
+	},
 	cards: {
 		justifyContent: 'space-evenly',
 	},
 }));
 
-const Home = () => {
+const AllOffers = () => {
 	const classes = useStyles();
-
-	const [offersPreviews, setOffersPreviews] = useState({});
 
 	useEffect(() => {
 		const abortController = new AbortController();
@@ -29,7 +30,8 @@ const Home = () => {
 					signal: abortController.signal,
 				});
 				const response = await rawResponse.json();
-				setOffersPreviews(response.reverse());
+				setAllOffers(response.reverse());
+				setFilteredOffers(response.reverse());
 			} catch (error) {
 				console.log(error);
 			}
@@ -42,13 +44,44 @@ const Home = () => {
 		};
 	}, []);
 
+	const [allOffers, setAllOffers] = useState([]);
+	const [filteredOffers, setFilteredOffers] = useState([]);
+
+	const filtersOptions = [
+		{
+			title: 'Core i5-10400',
+			year: 1994,
+		},
+		{ title: 'Ryzen 5 3600', year: 1972 },
+		{ title: 'The Godfather: Part II', year: 1974 },
+	];
+
+	const [filterValue, setFilterValue] = useState([]);
+
+	const handleFilterChange = (e, newValue) => {
+		setFilterValue(newValue);
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const filters = filterValue.map((item) => item.title);
+		const newFilteredOffers = allOffers.filter(
+			(offer) => offer.processor.processor_name === filters[0]
+		);
+		setFilteredOffers(newFilteredOffers);
+	};
+
 	return (
-		<main>
-			<Hero />
+		<main className={classes.root}>
 			<Container>
+				<Filter
+					handleSubmit={handleSubmit}
+					filtersOptions={filtersOptions}
+					handleFilterChange={handleFilterChange}
+				/>
 				<Grid container className={classes.cards}>
-					{offersPreviews.length ? (
-						offersPreviews.map(
+					{filteredOffers.length ? (
+						filteredOffers.map(
 							({ id, processor, graphics, price, loc }) => {
 								return (
 									<OfferPreview
@@ -71,4 +104,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default AllOffers;
