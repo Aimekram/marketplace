@@ -20,12 +20,21 @@ const useStyles = makeStyles((theme) => ({
 const AllOffers = () => {
 	const classes = useStyles();
 
+	const [allOffers, setAllOffers] = useState([]);
+	const [filteredOffers, setFilteredOffers] = useState([]);
+	const [checkboxesStates, setCheckboxesStates] = useState({});
+
+	// get unique filters
+	const filtersOptionsNotUnique = allOffers.map(
+		(offer) => offer.processor.processor_name
+	);
+	const uniqueFilters = [...new Set(filtersOptionsNotUnique)];
+
 	useEffect(() => {
 		const abortController = new AbortController();
 
 		async function fetchData() {
 			try {
-				// TODO: fetch only selected offers for Homepage
 				const rawResponse = await fetch(`${BASE_URL}/offersPreviews`, {
 					signal: abortController.signal,
 				});
@@ -44,40 +53,52 @@ const AllOffers = () => {
 		};
 	}, []);
 
-	const [allOffers, setAllOffers] = useState([]);
-	const [filteredOffers, setFilteredOffers] = useState([]);
+	useEffect(() => {
+		async function setInitialData() {
+			const filtersOptions = [
+				...new Set(
+					allOffers.map((offer) => offer.processor.processor_name)
+				),
+			];
+			const initialState = await filtersOptions.reduce(
+				(acc, cur) => ({ ...acc, [cur]: true }),
+				{}
+			);
+			setCheckboxesStates(initialState);
+		}
 
-	const filtersOptions = [
-		{
-			title: 'Core i5-10400',
-			year: 1994,
-		},
-		{ title: 'Ryzen 5 3600', year: 1972 },
-		{ title: 'The Godfather: Part II', year: 1974 },
-	];
+		setInitialData();
+	}, [allOffers]);
 
-	const [filterValue, setFilterValue] = useState([]);
-
-	const handleFilterChange = (e, newValue) => {
-		setFilterValue(newValue);
+	const handleFilterChange = (e) => {
+		const checkboxName = e.target.name;
+		const isChecked = e.target.checked;
+		setCheckboxesStates({ ...checkboxesStates, [checkboxName]: isChecked });
+		setFilteredOffers(
+			allOffers.filter(
+				(offer) => offer.processor.processor_name === 'Ryzen 5 3600'
+			)
+		);
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const filters = filterValue.map((item) => item.title);
-		const newFilteredOffers = allOffers.filter(
-			(offer) => offer.processor.processor_name === filters[0]
-		);
-		setFilteredOffers(newFilteredOffers);
+		// const filters = checkboxesStates.map((item) => item.title);
+		// const newFilteredOffers = allOffers.filter(
+		// 	(offer) => offer.processor.processor_name === filters[0]
+		// );
+		// setFilteredOffers(newFilteredOffers);
 	};
 
+	console.log(checkboxesStates);
 	return (
 		<main className={classes.root}>
 			<Container>
 				<Filter
 					handleSubmit={handleSubmit}
-					filtersOptions={filtersOptions}
+					filtersOptions={uniqueFilters}
 					handleFilterChange={handleFilterChange}
+					checkboxesStates={checkboxesStates}
 				/>
 				<Grid container className={classes.cards}>
 					{filteredOffers.length ? (

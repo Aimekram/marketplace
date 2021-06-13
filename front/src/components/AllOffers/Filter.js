@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -6,11 +6,12 @@ import {
 	Checkbox,
 	Container,
 	FormControlLabel,
+	FormGroup,
 	Grid,
 	TextField,
 	Typography,
 } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
+// import { Autocomplete } from '@material-ui/lab'; //TODO: delete /lab package?
 
 const useStyles = makeStyles((theme) => ({
 	root: {},
@@ -22,7 +23,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Filters = ({ handleSubmit, filtersOptions, handleFilterChange }) => {
+const Filters = ({
+	handleSubmit,
+	filtersOptions,
+	handleFilterChange,
+	checkboxesStates,
+}) => {
 	const classes = useStyles();
 
 	return (
@@ -30,32 +36,24 @@ const Filters = ({ handleSubmit, filtersOptions, handleFilterChange }) => {
 			<form className={classes.form} noValidate onSubmit={handleSubmit}>
 				<Grid container spacing={2}>
 					<Grid item xs={12} sm={6}>
-						<Autocomplete
-							multiple
-							limitTags={2}
-							id='processor'
-							options={filtersOptions}
-							getOptionLabel={(option) => option.title}
-							onChange={(e, newValue) =>
-								handleFilterChange(e, newValue)
-							}
-							renderInput={(params) => (
-								<TextField
-									{...params}
-									label='Wybierz procesor'
-									variant='outlined'
-									value='lala'
-								/>
-							)}
-							// autoComplete='fname'
-							// name='Procesor'
-							// variant='outlined'
-							// required
-							// fullWidth
-							// id='procesor'
-							// label='example: Ryzen 3 3100'
-							// autoFocus
-						/>
+						<FormGroup>
+							{filtersOptions &&
+								filtersOptions.map((option) => (
+									<FormControlLabel
+										key={option}
+										control={
+											<Checkbox
+												checked={
+													!!checkboxesStates[option]
+												}
+												onChange={handleFilterChange}
+												name={option}
+											/>
+										}
+										label={option}
+									/>
+								))}
+						</FormGroup>
 					</Grid>
 					<Grid item xs={12} sm={6}>
 						<TextField
