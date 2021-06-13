@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -23,17 +23,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Filters = ({
-	handleSubmit,
-	filtersOptions,
-	handleFilterChange,
-	checkboxesStates,
-}) => {
+const Filters = ({ filtersOptions, handleFilterChange, checkedBoxes }) => {
 	const classes = useStyles();
 
 	return (
 		<Container className={classes.root}>
-			<form className={classes.form} noValidate onSubmit={handleSubmit}>
+			<form className={classes.form} noValidate>
 				<Grid container spacing={2}>
 					<Grid item xs={12} sm={6}>
 						<FormGroup>
@@ -43,9 +38,9 @@ const Filters = ({
 										key={option}
 										control={
 											<Checkbox
-												checked={
-													!!checkboxesStates[option]
-												}
+												checked={checkedBoxes.includes(
+													option
+												)}
 												onChange={handleFilterChange}
 												name={option}
 											/>
@@ -67,14 +62,14 @@ const Filters = ({
 						/>
 					</Grid>
 				</Grid>
-				<Button
+				{/* <Button
 					type='submit'
 					variant='contained'
 					color='primary'
 					className={classes.submit}
 				>
 					Filter
-				</Button>
+				</Button> */}
 			</form>
 		</Container>
 	);

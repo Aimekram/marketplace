@@ -22,7 +22,7 @@ const AllOffers = () => {
 
 	const [allOffers, setAllOffers] = useState([]);
 	const [filteredOffers, setFilteredOffers] = useState([]);
-	const [checkboxesStates, setCheckboxesStates] = useState({});
+	const [checkedBoxes, setCheckedBoxes] = useState([]);
 
 	// get unique filters
 	const filtersOptionsNotUnique = allOffers.map(
@@ -60,45 +60,39 @@ const AllOffers = () => {
 					allOffers.map((offer) => offer.processor.processor_name)
 				),
 			];
-			const initialState = await filtersOptions.reduce(
-				(acc, cur) => ({ ...acc, [cur]: true }),
-				{}
-			);
-			setCheckboxesStates(initialState);
+			const initialState = filtersOptions;
+			setCheckedBoxes(initialState);
 		}
 
 		setInitialData();
 	}, [allOffers]);
 
+	useEffect(() => {
+		const newFilteredOffers = allOffers.filter((offer) =>
+			checkedBoxes.includes(offer.processor.processor_name)
+		);
+		console.log(newFilteredOffers);
+		setFilteredOffers(newFilteredOffers);
+	}, [allOffers, checkedBoxes]);
+
 	const handleFilterChange = (e) => {
 		const checkboxName = e.target.name;
-		const isChecked = e.target.checked;
-		setCheckboxesStates({ ...checkboxesStates, [checkboxName]: isChecked });
-		setFilteredOffers(
-			allOffers.filter(
-				(offer) => offer.processor.processor_name === 'Ryzen 5 3600'
-			)
-		);
+		if (checkedBoxes.includes(checkboxName)) {
+			setCheckedBoxes(
+				checkedBoxes.filter((item) => item !== checkboxName)
+			);
+		} else {
+			setCheckedBoxes([...checkedBoxes, checkboxName]);
+		}
 	};
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		// const filters = checkboxesStates.map((item) => item.title);
-		// const newFilteredOffers = allOffers.filter(
-		// 	(offer) => offer.processor.processor_name === filters[0]
-		// );
-		// setFilteredOffers(newFilteredOffers);
-	};
-
-	console.log(checkboxesStates);
 	return (
 		<main className={classes.root}>
 			<Container>
 				<Filter
-					handleSubmit={handleSubmit}
 					filtersOptions={uniqueFilters}
 					handleFilterChange={handleFilterChange}
-					checkboxesStates={checkboxesStates}
+					checkedBoxes={checkedBoxes}
 				/>
 				<Grid container className={classes.cards}>
 					{filteredOffers.length ? (
