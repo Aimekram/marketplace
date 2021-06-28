@@ -4,6 +4,8 @@ import { BASE_URL } from '../../constants';
 import OfferPreview from '../OfferPreview';
 import Filter from './Filter';
 
+import getUniqueObjFromArr from '../../utils/getUniqueObjFromArr';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -25,10 +27,11 @@ const AllOffers = () => {
 	const [checkedBoxes, setCheckedBoxes] = useState([]);
 
 	// get unique filters
-	const filtersOptionsNotUnique = allOffers.map(
-		(offer) => offer.processor.processor_name
-	);
-	const uniqueFilters = [...new Set(filtersOptionsNotUnique)];
+	const allFiltersOptions = allOffers.map((offer) => ({
+		name: offer.processor.processor_name,
+		id: offer.processor.id,
+	}));
+	const uniqueFiltersOptions = getUniqueObjFromArr(allFiltersOptions, 'id');
 
 	useEffect(() => {
 		const abortController = new AbortController();
@@ -71,7 +74,7 @@ const AllOffers = () => {
 		const newFilteredOffers = allOffers.filter((offer) =>
 			checkedBoxes.includes(offer.processor.processor_name)
 		);
-		console.log(newFilteredOffers);
+		// console.log(newFilteredOffers);
 		setFilteredOffers(newFilteredOffers);
 	}, [allOffers, checkedBoxes]);
 
@@ -90,7 +93,7 @@ const AllOffers = () => {
 		<main className={classes.root}>
 			<Container>
 				<Filter
-					filtersOptions={uniqueFilters}
+					filtersOptions={uniqueFiltersOptions}
 					handleFilterChange={handleFilterChange}
 					checkedBoxes={checkedBoxes}
 				/>

@@ -1,14 +1,13 @@
 import React from 'react';
 
+import CheckboxFilter from '../Filters/CheckboxFilter';
+
 import { makeStyles } from '@material-ui/core/styles';
 import {
-	Button,
-	Checkbox,
 	Container,
-	FormControlLabel,
 	FormGroup,
 	Grid,
-	TextField,
+	Slider,
 	Typography,
 } from '@material-ui/core';
 // import { Autocomplete } from '@material-ui/lab'; //TODO: delete /lab package?
@@ -34,32 +33,25 @@ const Filters = ({ filtersOptions, handleFilterChange, checkedBoxes }) => {
 						<FormGroup>
 							{filtersOptions &&
 								filtersOptions.map((option) => (
-									<FormControlLabel
-										key={option}
-										control={
-											<Checkbox
-												checked={checkedBoxes.includes(
-													option
-												)}
-												onChange={handleFilterChange}
-												name={option}
-											/>
-										}
-										label={option}
+									<CheckboxFilter
+										option={option}
+										checkedBoxes={checkedBoxes}
+										handleChange={handleFilterChange}
 									/>
 								))}
 						</FormGroup>
 					</Grid>
 					<Grid item xs={12} sm={6}>
-						<TextField
-							variant='outlined'
-							required
-							fullWidth
-							id='lastName'
-							label='Last Name'
-							name='lastName'
-							autoComplete='lname'
-						/>
+						<Typography id='range-slider' gutterBottom>
+							Temperature range
+						</Typography>
+						{/* <Slider
+							value={value}
+							onChange={handleChange}
+							valueLabelDisplay='auto'
+							aria-labelledby='range-slider'
+							getAriaValueText={valuetext}
+						/> */}
 					</Grid>
 				</Grid>
 				{/* <Button

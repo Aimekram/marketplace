@@ -11,6 +11,7 @@ router.get('/', async (req, res) => {
 		return {
 			id: offer._id,
 			processor: {
+				id: offer.processor.id,
 				processor_name: offer.processor.name,
 				processor_threads: offer.processor.threads,
 			},
