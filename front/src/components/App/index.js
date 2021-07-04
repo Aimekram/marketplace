@@ -4,6 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../styles/theme';
 
+import CookiesModal from '../Cookies';
 import Header from '../Header';
 import Home from '../Home';
 import Offer from '../Offer';
@@ -25,16 +26,17 @@ const App = () => (
 					<Route path='/offers'>
 						<AllOffers />
 					</Route>
-					<Route path='/offer'>
+					{/* <Route path='/offer'>
 						<Offer />
 					</Route>
 					<Route path='/signup'>
 						<Signup />
-					</Route>
+					</Route> */}
 					<Route path='/'>
 						<Home />
 					</Route>
 				</Switch>
+				<CookiesModal />
 			</Router>
 		</ThemeProvider>
 	</React.StrictMode>
