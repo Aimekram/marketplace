@@ -1,24 +1,31 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 const globalTheme = createMuiTheme({
 	palette: {
 		primary: {
-			main: purple[500],
+			main: '#022140',
 		},
 		secondary: {
-			main: green[500],
+			main: '#2d5f5d',
 		},
+		tertiary: {
+			main: '#265077',
+		},
+	},
+	typography: {
+		fontFamily: ['Montserrat', 'Open Sans', 'sans-serif'].join(','),
 	},
 });
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
 	...globalTheme,
 	// globals
 	overrides: {
 		MuiCssBaseline: {
 			'@global': {
+				body: {
+					backgroundColor: globalTheme.palette.primary.main,
+				},
 				ul: {
 					margin: 0,
 					padding: 0,
@@ -31,9 +38,14 @@ const theme = createMuiTheme({
 						color: globalTheme.palette.secondary.main,
 					},
 				},
+				main: {
+					paddingTop: '64px',
+				},
 			},
 		},
 	},
 });
+
+theme = responsiveFontSizes(theme);
 
 export default theme;
