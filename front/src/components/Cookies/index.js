@@ -8,9 +8,6 @@ import { Button, Typography } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		position: 'fixed',
-		// top: 'auto',
-		// left: '15%',
-		// right: '15%',
 		bottom: '0',
 		borderTop: '1px solid rgb(100, 100, 100)',
 		background: theme.palette.common.white,
